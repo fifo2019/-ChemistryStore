@@ -1,0 +1,22 @@
+{% load staticfiles %}
+
+{% if user.is_authenticated %}
+<h6 style="text-align: center;">Личный кабинет</h6>
+
+<div class="sign-in-position">
+    <div class="basket-block-position">
+        <a href="{% url 'basket:view' %}" style="text-decoration: none;">
+            <img src="{% static 'img/basket-logo.png' %}" class="basket-logo">
+            <span>
+                {% if basket %} {{ basket|length }} {% endif %}
+            </span>
+        </a>
+    </div>
+    <div class="user-li">
+        <a href="{% url 'auth:edit' %}" style="text-decoration: none"><abbr title="Редактировать" style="text-decoration: none;">
+            {{ user.first_name|default:'Пользователь' }}</abbr>
+        </a>
+    </div>
+</div>
+{% endif %}
+

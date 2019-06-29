@@ -1,0 +1,15 @@
+<div class="category-wrap">
+  <h3>Категории</h3>
+    <ul class="">
+    {% for link in links_menu %}
+        <li>
+            <a href="{% url 'products:category' link.pk %}"
+                 class="{% if request.resolver_match.kwargs.pk|add:'0' == link.pk %}
+                          active-links-menu
+                        {% endif %}">
+                {{ link.name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+</div>

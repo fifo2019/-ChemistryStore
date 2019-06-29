@@ -1,0 +1,21 @@
+{% extends 'authapp/base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+<div class="login login-auth" style="margin-top: 20px;">
+<div class="text-center head text-login">
+    Изменить данные
+</div>
+    <div class="user_avatar">
+        <img src="/media/{{ user.avatar }}" onError="this.onerror=null;this.src='{% static 'img/default.jpg' %}';"
+             class="user-avatars-404" style="width: 150px; margin: 10px; border-radius: 18px;"></div>
+    <form class="form-horizontal" action="{% url 'auth:edit' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ edit_form.as_p }}
+        <input class="form-control" type="submit" value="сохранить">
+    </form>
+    <a href="{% url 'main' %}" style="text-decoration: none; margin-top: 5px; margin-bottom: 30px;">На главную</a>
+    <a href="{% url 'auth:delete' user.pk %}" style="text-decoration: none; margin-bottom: 30px;">Удалить учётную запись</a>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'authapp/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="login login-auth">
+<div class="text-center head text-login">
+    Удаление учётной записи
+</div>
+    <br>
+    <h3>Учётная запись удалена успешно!</h3>
+  <br>
+  <a href="{% url 'main' %}" style="text-decoration: none; margin-top: 5px; margin-bottom: 30px; font-size: 22px">Войти</a>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'authapp/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="login login-auth">
+<div class="text-center head text-login">
+    Удаление учётной записи
+</div>
+    <div style="margin-top: 15px; font-size: 17px;">{{ user.first_name }}, Вы уверены? Что хотите удалить чётную запись {{ user.username }}
+    ? </div>
+    <form action="{% url 'auth:delete' user.pk %}"
+          method="post" class="button-delete">
+      {% csrf_token %}
+      <input class="btn btn-danger" style="width: 150px; margin: 30px 0;" type="submit" value="удалить">
+      <a href="{% url 'auth:edit' %}" class="btn btn-success" style="width: 150px; margin: 30px 0;">
+        отмена
+      </a>
+    </form>
+</div>
+{% endblock %}

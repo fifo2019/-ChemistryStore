@@ -1,0 +1,15 @@
+{% extends 'authapp/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="login login-auth">
+<div class="text-center head text-login">
+    Регистрация прошла успешно!
+</div>
+    <br>
+    <h3>Поздравляем! Вы зарегистрированы!</h3>
+    <h4>Обязательно войдите в личный кабинет!</h4>
+  <br>
+  <a href="{% url 'auth:login' %}" style="text-decoration: none; margin-top: 5px; margin-bottom: 30px; font-size: 22px">Войти</a>
+</div>
+{% endblock %}

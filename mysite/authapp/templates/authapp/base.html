@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}
+            {{ title|title }}
+        {% endblock %}
+    </title>
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    {% endblock %}
+    {% block js %}
+
+    {% endblock %}
+</head>
+<body>
+    <div class="container conteiner-auth">
+            {% block content %}
+
+            {% endblock %}
+    </div>
+</body>
+</html>

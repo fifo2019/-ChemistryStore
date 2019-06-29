@@ -1,0 +1,47 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+
+
+{% block menu %}
+<div class="header">
+    <a href="{% url 'main' %}"><img src="{% static 'img/logo.jpg' %}" class="logo"></a>
+    <div class="info-contact-position">
+            <h4 style="font-size: 15px;">Контакты:</h4>
+            <ul class="position-contact">
+                <li class="text-info-contact">Тел.: +7(927)-053-62-42</li>
+                <li class="text-info-contact">Адрес: 413090, Саратовская область, г. Маркс, ул. Бебеля,
+                    д.&nbsp;58
+                </li>
+                <li class="text-info-contact">Email: frost2015s@yandex.ru</li>
+            </ul>
+    </div>
+    <div class="position-index-sign-in-and-menu">
+        <div class="position-basket-and-user">
+            <div style="width: 150px;">
+            <h4 style="font-size: 15px;">Режим работы:</h4>
+            <ul class="position-contact">
+                <li class="text-info-contact">Пн.- Пт.: с 08:00 до 17:00</li>
+                <li class="text-info-contact">Сб.: с 08:00 до 14:00</li>
+                <li class="text-info-contact">Вс.: с 08:00 до 12:00</li>
+            </ul>
+        </div>
+        <div class="position-index-sign-in">
+            {% include 'mainapp/includes/inc_sing_in.html' %}
+        </div>
+        </div>
+        <div>{% include 'mainapp/includes/inc_menu.html' %}</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+    <div class="info-contact-position">
+        <h2>Наши контакты:</h2>
+        <ul>
+            <li class="text-info-contact">Телефон: +7(927)-053-62-42</li>
+            <li class="text-info-contact">Адрес магазина: 413090, Саратовская область, г. Маркс, ул. Бебеля, д.&nbsp;58</li>
+            <li class="text-info-contact">E-mail: frost2015s@yandex.ru</li>
+        </ul>
+    </div>
+    <br>
+{% endblock %}
