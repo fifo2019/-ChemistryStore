@@ -276,14 +276,13 @@ textarea {
 
 
 .product-conteiner-one {
-    margin-bottom: 20px;
-    margin-right: 9px;
-    margin-left: 9px;
+    margin: 15px 4px;
     width: 220px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    height: 281px;
 }
 
 .product-conteiner-one:hover {
