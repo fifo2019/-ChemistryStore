@@ -28,7 +28,6 @@ def main(request):
 def products(request, pk=None, page=1):
     print(pk)
 
-    title = 'Товары'
     links_menu = ProductCategory.objects.exclude(name='Новинки')
 
     basket = []
@@ -37,7 +36,8 @@ def products(request, pk=None, page=1):
 
     category = get_object_or_404(ProductCategory, pk=pk)
     products = Product.objects.filter(category__pk=pk).order_by('price')
-
+    title = '{0}'.format(category.name)
+    
     content = {
         'title': title,
         'links_menu': links_menu,
@@ -50,7 +50,7 @@ def products(request, pk=None, page=1):
 
 
 def feedback(request):
-    title = 'Отзывы - предложения'
+    title = 'Написать нам'
 
     basket = []
     if request.user.is_authenticated:
