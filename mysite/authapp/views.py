@@ -11,34 +11,28 @@ from authapp.models import ShopUser
 def login(request):
     title = 'вход'
 
-    # Не вдаваясь в подробности, будем считать, что ShopUserLoginForm(data=request.POST)
-    # возвращает html-код классической формы для логина. Если запрос выполнен методом GET,
-    # форма будет пустая (так как request.POST равен None)
-    # создаем экземпляр класса ShopUserLoginForm (объект формы)
     login_form = ShopUserLoginForm(data=request.POST or None)
-    # Если запрос выполнен методом POST, форма будет заполнена данными,
-    # которые ввел пользователь на странице. Метод формы is_valid() проверяет
-    # их корректность в соответствии с атрибутами модели.
+
+    next = request.GET['next'] if 'next' in request.GET.keys() else ''
+
     if request.method == 'POST' and login_form.is_valid():
-        # Далее получаем из словаря POST-данных логин и пароль
         username = request.POST['username']
         password = request.POST['password']
 
-        # вызываем встроенную в Django функцию аутентификации:
-        # В случае успеха она вернет объект пользователя в переменную user.
         user = auth.authenticate(username=username, password=password)
-        # Если пользователь активен
-        # (проверяем атрибут модели is_active) —
-        # вызываем функцию auth.login(request, user).
-        if user and user.is_active:
-            # Она пропишет пользователя в объект запроса request.
-            auth.login(request, user)
-            # возвращаем переадресацию на главную
-            return HttpResponseRedirect(reverse('main'))
 
-    # в контент передаем название странице - title, и объект формы login_form
-    content = {'title': title, 'login_form': login_form}
-    # рендерим - визиализируем в шаблон и возвращаем пользователю
+        if user and user.is_active:
+            auth.login(request, user)
+            if 'next' in request.POST.keys():
+                return HttpResponseRedirect(request.POST['next'])
+            else:
+                return HttpResponseRedirect(reverse('main'))
+
+    content = {'title': title,
+               'login_form': login_form,
+               'next': next,
+               }
+
     return render(request, 'authapp/login.html', content)
 
 

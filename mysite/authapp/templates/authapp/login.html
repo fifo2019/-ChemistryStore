@@ -7,16 +7,11 @@
 <div class="text-center head text-login">
     Личный кабинет
 </div>
-<!--динамическая гиперссылка на адрес контроллера аутентификации. -->
-<!--Двоеточием разделены пространство имен auth и адрес в нем — login;-->
     <form class="form-horizontal position-form-auth" action="{% url 'auth:login' %}" method="post">
-<!--        токен — это электронный ключ для доступа к чему-либо-->
-<!--        токен системы защиты от межсайтовой подделки запроса CSRF. -->
-<!--        Обновляется при каждой перезагрузке страницы и передается в виде <input type=”hidden”> -->
-<!--        (обязательно проверьте это в консоли разработчика браузера).-->
         {% csrf_token %}
-<!--        воспользоваться одним из методов: as_p ( вывод формы через теги <p>),-->
-<!--        as_table (как таблицу), as_ul (в виде списка <ul>);-->
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
         {{ login_form.as_p }}
         <br>
         <input class="form-control" type="submit" value="войти">
