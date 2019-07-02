@@ -53,16 +53,13 @@
         <h3 class="big-bold">{{ product.name }}</h3>
         <br>
         <p class="price"> {{ product.price }} <span>руб</span></p>
-        {% if user.is_authenticated %}
                             <a href="{% url 'basket:add' product.pk %}" class="button-basket-index">В корзину</a>
-                            {% else %}
-                            <a href="{% url 'auth:login' %}" class="button-basket-index">В корзину</a>
-                            {% endif %}
           <i class="fa fa-chevron-right" aria-hidden="true"></i>
         <div class="description-text">
           {{ product.description }}
         </div>
       </div>
+    <input type="button" onclick="history.back();" value="Назад" style="width: 100px; padding-left: 0;">
     </div>
 
         <div style="margin-top: 30px;">Похожие товары</div>
@@ -83,11 +80,7 @@
                             <div class="product-price">&#8381 {{ same_product.price }}</div>
                         </div>
                         <div class="button-index-basket-position">
-                            {% if user.is_authenticated %}
                             <a href="{% url 'basket:add' same_product.pk %}" class="button-basket-index">В корзину</a>
-                            {% else %}
-                            <a href="{% url 'auth:login' %}" class="button-basket-index">В корзину</a>
-                            {% endif %}
                         </div>
                     </div>
                 </div>
