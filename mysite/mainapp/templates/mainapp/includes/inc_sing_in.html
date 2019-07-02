@@ -8,7 +8,10 @@
         <a href="{% url 'basket:view' %}" style="text-decoration: none;">
             <img src="{% static 'img/basket-logo.png' %}" class="basket-logo">
             <span>
-                {% if basket %} {{ basket|length }} {% endif %}
+                {% if basket %}
+                  {{ basket.0.total_cost|floatformat:0 }} руб
+                  ({{ basket.0.total_quantity }} шт.)
+                {% endif %}
             </span>
         </a>
     </div>

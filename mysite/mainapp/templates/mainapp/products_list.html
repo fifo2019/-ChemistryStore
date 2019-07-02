@@ -44,7 +44,7 @@
             {% for product in products %}
             <div class="product-conteiner-one">
                 <div class="img-products-conteiner>">
-                    <a href="#" target="_blank"><img src="/media/{{ product.image }}" alt="{{ product.short_desc }}"
+                    <a href="{% url 'products:product' product.pk %}"><img src="/media/{{ product.image }}" alt="{{ product.short_desc }}"
                                      class="img-product-index">
                     </a>
                     <h3 class="product-name-index">{{ product.name }}</h3>
@@ -57,7 +57,6 @@
                     <div class="price">
                         <div>
                             <div class="product-price">&#8381 {{ product.price }}</div>
-                            <div class="quantity-product"> Осталось {{ product.quantity }} шт.</div>
                         </div>
                         <div class="button-index-basket-position">
                             {% if user.is_authenticated %}

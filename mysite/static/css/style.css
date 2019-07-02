@@ -513,6 +513,7 @@ button {
 .product-name-index {
     font-size: 16px;
     margin-top: 10px;
+    height: 30px;
 }
 
 .quantity-product {
@@ -586,3 +587,14 @@ button {
     display: flex;
     margin-top: 30px;
 }
+
+.products-conteiner::-webkit-scrollbar { width: 0; }
+
+.scroll-similar-products {
+    overflow-x: overlay;
+    display: flex;
+    width: 850px;
+    height: 350px;
+}
+
+.scroll-similar-products::-webkit-scrollbar { width: 0; }
