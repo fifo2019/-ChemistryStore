@@ -15,7 +15,11 @@
         {{ edit_form.as_p }}
         <input class="form-control" type="submit" value="сохранить">
     </form>
+    <form action="{% url 'auth:delete' user.pk %}">
+            {% csrf_token %}
+            {{ user.as_p }}
+            <input type="submit" value="Удалить учётную запись">
+    </form>
     <a href="{% url 'main' %}" style="text-decoration: none; margin-top: 5px; margin-bottom: 30px;">На главную</a>
-    <a href="{% url 'auth:delete' user.pk %}" style="text-decoration: none; margin-bottom: 30px;">Удалить учётную запись</a>
 </div>
 {% endblock %}

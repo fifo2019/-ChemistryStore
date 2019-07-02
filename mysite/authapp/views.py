@@ -83,13 +83,16 @@ def edit(request):
 def delete(request, pk):
     title = 'удаление'
 
-    user = ShopUser.objects.filter(pk=pk)
+    user = get_object_or_404(ShopUser, pk=pk)
 
     if request.method == 'POST':
-        user.delete()
+        user.is_active = False
+        user.save()
 
         return render(request, 'authapp/message_delete_user.html')
 
-    content = {'title': title, 'user_to_delete': user}
+    content = {'title': title,
+               'user_to_delete': user,
+               }
 
     return render(request, 'authapp/delete.html', content)
