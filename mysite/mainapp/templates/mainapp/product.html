@@ -13,6 +13,14 @@
                 д.&nbsp;58
             </li>
             <li class="text-info-contact">Email: frost2015s@yandex.ru</li>
+            <li class="search-position">
+                <form class="navbar-form navbar-left" action="{% url 'search' %}" method="get">
+                <div class="form-group">
+                  <input class="form-control" type="text" placeholder="Введите ключевые слова" name="q">
+                  <button class="btn btn-default" type="submit" style="height: 38px;">Поиск</button>
+                </div>
+                </form>
+            </li>
         </ul>
     </div>
     <div class="position-index-sign-in-and-menu">
@@ -33,13 +41,14 @@
     </div>
 </div>
 {% endblock %}
+
 {% block content %}
 <div class="block-products">
     <div class="block-links-menu">
         {% include 'mainapp/includes/inc_categories_menu.html' %}
     </div>
-    <div class="products-conteiner" style="flex-direction: column">
-<div style=" display: flex;">
+    <div class="products-conteiner" style="flex-direction: column;">
+<div style=" display: flex; justify-content: space-between;">
     <div class="details-products">
       <div class="details-slider">
         <div class="slider-product">
@@ -50,19 +59,25 @@
       </div>
 
       <div class="description">
-        <h3 class="big-bold">{{ product.name }}</h3>
-        <br>
-        <p class="price"> {{ product.price }} <span>руб</span></p>
-                            <a href="{% url 'basket:add' product.pk %}" class="button-basket-index">В корзину</a>
-          <i class="fa fa-chevron-right" aria-hidden="true"></i>
-        <div class="description-text">
-          {{ product.description }}
-        </div>
+          <table style="width: 400px;">
+              <tr>
+                  <td style="height: 60px;"><h3 class="big-bold">{{ product.name }}</h3></td>
+              </tr>
+              <tr>
+                  <td style="height: 60px;"><p style="font-size: 20px; color: #fc5a5a;"> {{ product.price }} руб</p></td>
+              </tr>
+              <tr>
+                  <td style="height: 60px;">{{ product.description }}</td>
+              </tr>
+              <tr>
+                  <td style="height: 60px;"><a href="{% url 'basket:add' product.pk %}" class="button-basket-index" style="text-align: center;">В корзину</a></td>
+              </tr>
+          </table>
       </div>
     <input type="button" onclick="history.back();" value="Назад" style="width: 100px; padding-left: 0;">
     </div>
 
-        <div style="margin-top: 30px;">Похожие товары</div>
+        <div style="margin-top: 30px; margin-left: 30px;">Похожие товары >>></div>
         <div class="scroll-similar-products" id="yourDiv">
         {% for same_product in same_products %}
             <div class="product-conteiner-one">

@@ -5,28 +5,36 @@
 <div class="header">
     <a href="{% url 'main' %}"><img src="{% static 'img/logo.jpg' %}" class="logo"></a>
     <div class="info-contact-position">
-            <h4 style="font-size: 15px;">Контакты:</h4>
-            <ul class="position-contact">
-                <li class="text-info-contact">Тел.: +7(927)-053-62-42</li>
-                <li class="text-info-contact">Адрес: 413090, Саратовская область, г. Маркс, ул. Бебеля,
-                    д.&nbsp;58
-                </li>
-                <li class="text-info-contact">Email: frost2015s@yandex.ru</li>
-            </ul>
+        <h4 style="font-size: 15px;">Контакты:</h4>
+        <ul class="position-contact">
+            <li class="text-info-contact">Тел.: +7(927)-053-62-42</li>
+            <li class="text-info-contact">Адрес: 413090, Саратовская область, г. Маркс, ул. Бебеля,
+                д.&nbsp;58
+            </li>
+            <li class="text-info-contact">Email: frost2015s@yandex.ru</li>
+            <li class="search-position">
+                <form class="navbar-form navbar-left" action="{% url 'search' %}" method="get">
+                <div class="form-group">
+                  <input class="form-control" type="text" placeholder="Введите ключевые слова" name="q">
+                  <button class="btn btn-default" type="submit">Поиск</button>
+                </div>
+                </form>
+            </li>
+        </ul>
     </div>
     <div class="position-index-sign-in-and-menu">
         <div class="position-basket-and-user">
             <div style="width: 150px;">
-            <h4 style="font-size: 15px;">Режим работы:</h4>
-            <ul class="position-contact">
-                <li class="text-info-contact">Пн.- Пт.: с 08:00 до 17:00</li>
-                <li class="text-info-contact">Сб.: с 08:00 до 14:00</li>
-                <li class="text-info-contact">Вс.: с 08:00 до 12:00</li>
-            </ul>
-        </div>
-        <div class="position-index-sign-in">
-            {% include 'mainapp/includes/inc_sing_in.html' %}
-        </div>
+                <h4 style="font-size: 15px;">Режим работы:</h4>
+                <ul class="position-contact">
+                    <li class="text-info-contact">Пн.- Пт.: с 08:00 до 17:00</li>
+                    <li class="text-info-contact">Сб.: с 08:00 до 14:00</li>
+                    <li class="text-info-contact">Вс.: с 08:00 до 12:00</li>
+                </ul>
+            </div>
+            <div class="position-index-sign-in">
+                {% include 'mainapp/includes/inc_sing_in_two.html' %}
+            </div>
         </div>
         <div>{% include 'mainapp/includes/inc_menu.html' %}</div>
     </div>
@@ -34,51 +42,10 @@
 {% endblock %}
 
 {% block content %}
-<div style="display: flex;
-    align-items: baseline;
-    justify-content: center;">
-<div class="category-name-product-list" style="margin-left: 0;
-    margin-top: 6px;
-    font-size: 21px;
-    font-weight: 0;
-    margin-bottom: 0;">Ваш выбор:</div>
-{% if basket_items %}
-    <div class="basket_summary" style="margin-left: 15px;">
-      В корзине {{ basket_items.0.total_quantity }} товаров общей стоимостью
-                {{ basket_items.0.total_cost }} руб
+<div class="position-content-basket">
+
     </div>
-  {% endif %}
-    </div>
-  <div class="basket_list" style="display: flex; flex-wrap: wrap; justify-content: center; border: 4px solid #0f20ed; margin-bottom: 30px;">
-  {% for item in basket_items %}
-    <div class="basket_record" style="width: 1000px; display: flex; align-items: center; margin: 20px; border: 1px solid #0c76d0;
-    height: 300px;">
-        <div>
-            <img src="/media/{{ item.product.image }}"
-                alt="{{ item.product.short_desc }}" style="width: 200px;">
-
-      </div>
-      <div>
-      <span class="category_name">Категория товара: {{ item.product.category.name }}</span>
-      <span class="product_name">Наименованиe: {{ item.product.name }}</span>
-      <span class="product_name">{{ item.product.description }}</span>
-      <span class="product_price">{{ item.product.price }}&nbspруб</span>
-      <span class="product_cost">{{ item.cost }}&nbspруб</span>
-      </div>
-
-        <div>
-            <input type="number" name="{{ item.pk }}"
-                           min="0"
-                           value="{{ item.quantity }}">
-            <form action="{% url 'basket:remove' item.pk %}" method="post">
-            {% csrf_token %}
-            {{ basket_record.as_p }}
-            <input type="submit" value="Удалить">
-        </form>
-      </div>
-    </div>
-  {% endfor %}
-
-
+  <div class="basket_list">
+    {% include 'basketapp/includes/inc_basket_list.html' %}
   </div>
 {% endblock %}

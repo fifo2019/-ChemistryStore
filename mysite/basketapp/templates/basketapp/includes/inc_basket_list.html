@@ -1,0 +1,47 @@
+<div class="category-name-product-list">
+    Меню корзины
+{% if basket_items %}
+    <div class="basket_summary" style="margin-left: 15px;">
+      В корзине {{ basket_items.0.total_quantity }} товаров общей стоимостью
+                {{ basket_items.0.total_cost }} руб
+    </div>
+  {% endif %}
+</div>
+<div style="display: flex; flex-wrap: wrap;">
+{% for item in basket_items %}
+<div class="basket_record">
+    <div>
+        <img src="/media/{{ item.product.image }}"
+            alt="{{ item.product.short_desc }}" style="width: 150px; margin-left: 15px;">
+
+    </div>
+    <div style="margin-left: 15px;">
+          <div style="margin-bottom: 15px; width: 200px; justify-content: center;">
+              <table>
+                <tr>
+                    <td class="product_name">{{ item.product.name }}</td>
+                </tr>
+                <tr>
+                    <td class="product_name" style="height: 50px;">{{ item.product.short_desc }}</td>
+                </tr>
+                <tr>
+                    <td class="product_price">{{ item.product.price }}&nbspруб</td>
+                </tr>
+            </table>
+
+          </div>
+
+          <div>
+                <input type="number" name="{{ item.pk }}"
+                                   min="0"
+                                   value="{{ item.quantity }}" style="width: 100px; color: #0616ee;">
+                <form action="{% url 'basket:remove' item.pk %}" method="post">
+                    {% csrf_token %}
+                    {{ basket_record.as_p }}
+                    <input type="submit" value="Удалить" style="width: 100px; margin-top: 15px; color: #0616ee;">
+                </form>
+          </div>
+    </div>
+</div>
+{% endfor %}
+</div>

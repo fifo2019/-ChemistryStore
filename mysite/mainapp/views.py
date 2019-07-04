@@ -3,6 +3,9 @@ import datetime
 from .models import Product, ProductCategory
 from basketapp.models import Basket
 from random import random, sample
+from django.db.models import Q
+from django.views import View
+
 # В контроллер всегда передается как минимум один аргумент — объект запроса request.
 # Мы пользуемся функцией render() из модуля django.shortcuts, которая должна
 # получить как минимум два аргумента: объект request (по сути, он через нее пробрасывается в шаблон)
@@ -53,9 +56,8 @@ def products(request, pk=None):
 
 
 def product(request, pk=None):
-    title = 'Продукт'
-
     product = get_object_or_404(Product, pk=pk)
+    title = '{0}'.format(product.name)
 
     content = {
         'title': title,
@@ -82,3 +84,27 @@ def feedback(request):
     return render(request, 'mainapp/feedback.html', content)
 
 
+def search(request, *args, **kwargs):
+
+    basket = []
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
+
+    query = request.GET.get('q')
+    search_product = Product.objects.filter(
+        Q(name__icontains=query)|
+        Q(name__istartswith=query)|
+        Q(short_desc__icontains=query)|
+        Q(short_desc__istartswith=query)|
+        Q(description__icontains=query)|
+        Q(description__istartswith=query)
+    )
+
+    context = {
+        'search_product': search_product,
+    }
+
+    if query == '':
+        return render(request, 'mainapp/search.html')
+    else:
+        return render(request, 'mainapp/search.html', context)
