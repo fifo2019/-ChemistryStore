@@ -32,6 +32,7 @@ urlpatterns = [
     path('feedback/', mainapp.feedback, name='feedback'),
     path('auth/', include('authapp.urls', namespace='auth')),
     path('basket/', include('basketapp.urls', namespace='basket')),
+    path('search/', mainapp.search, name='search'),
 
     path('admin/', admin.site.urls),
 ]
