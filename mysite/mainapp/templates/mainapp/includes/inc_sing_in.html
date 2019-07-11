@@ -1,24 +1,25 @@
 {% load staticfiles %}
 
 {% if user.is_authenticated %}
-<h6 style="text-align: center;">Личный кабинет</h6>
-
-<div class="sign-in-position">
-    <div class="basket-block-position">
-        <a href="{% url 'basket:view' %}" style="text-decoration: none;">
-            <img src="{% static 'img/basket-logo.png' %}" class="basket-logo">
-            <span>
-                {% if basket %}
-                  {{ basket.0.total_cost|floatformat:0 }} руб
-                  ({{ basket.0.total_quantity }} шт.)
-                {% endif %}
-            </span>
-        </a>
-    </div>
-    <div class="user-li">
-        <a href="{% url 'auth:edit' %}" style="text-decoration: none"><abbr title="Редактировать" style="text-decoration: none;">
+<a href="{% url 'auth:edit' %}" style="text-decoration: none; text-align: right; margin-bottom: 0; margin-right: 31px;
+    margin-top: 10px;"><abbr title="Редактировать" style="text-decoration: none;">
             {{ user.first_name|default:'Пользователь' }}</abbr>
         </a>
+<div class="sign-in-position">
+    <div class="basket-block-position">
+            {% if basket|length > 0 %}
+                    <img src="{% static 'img/basket-logo.png' %}" class="basket-logo">
+                    <span style="color: #f37f00; font-weight: 600;">
+                        {% if basket %}
+                         &#8381 {{ basket.0.total_cost }}
+                          ({{ basket.0.total_quantity }} шт.)
+                           </span><br/>
+                        {% endif %}
+
+                    <a href="{% url 'basket:view' %}" style="text-decoration: none;"><img src="{% static 'img/ordernow.jpg' %}" style="width: 204px"></a>
+                {% else %}
+                <img src="{% static 'img/catch-luck.jpg' %}" style="width: 241px; margin-left: 68px;">
+                {% endif %}
     </div>
 </div>
 {% endif %}

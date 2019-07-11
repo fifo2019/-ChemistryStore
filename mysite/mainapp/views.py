@@ -100,11 +100,18 @@ def search(request, *args, **kwargs):
         Q(description__istartswith=query)
     )
 
-    context = {
+    contextOne = {
         'search_product': search_product,
+        'links_menu': ProductCategory.objects.exclude(name='Новинки'),
+        'basket': basket,
+    }
+
+    contextTwo = {
+        'links_menu': ProductCategory.objects.exclude(name='Новинки'),
+        'basket': basket,
     }
 
     if query == '':
-        return render(request, 'mainapp/search.html')
+        return render(request, 'mainapp/search.html', contextTwo)
     else:
-        return render(request, 'mainapp/search.html', context)
+        return render(request, 'mainapp/search.html', contextOne)

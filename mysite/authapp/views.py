@@ -3,11 +3,9 @@ from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditF
 from django.contrib import auth
 from django.urls import reverse
 from authapp.models import ShopUser
+from django.contrib.auth.decorators import login_required
 
 
-# Рассмотрим контроллер login. Здесь мы воспользовались
-# механизмом форм Django. Форма генерируется автоматически
-# на основе соответствующей модели (в данном случае ShopUser).
 def login(request):
     title = 'вход'
 
@@ -58,6 +56,7 @@ def register(request):
     return render(request, 'authapp/register.html', content)
 
 
+@login_required
 def edit(request):
     title = 'редактирование'
 
@@ -74,6 +73,7 @@ def edit(request):
     return render(request, 'authapp/edit.html', content)
 
 
+@login_required
 def delete(request, pk):
     title = 'удаление'
 
