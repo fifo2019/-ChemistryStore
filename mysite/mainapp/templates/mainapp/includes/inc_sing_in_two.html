@@ -1,13 +1,24 @@
 {% load staticfiles %}
 
 {% if user.is_authenticated %}
-<h6 style="text-align: center;">Личный кабинет</h6>
-
-<div class="sign-in-position">
-    <div class="user-li">
-        <a href="{% url 'auth:edit' %}" style="text-decoration: none"><abbr title="Редактировать" style="text-decoration: none;">
+<a href="{% url 'auth:edit' %}" style="text-decoration: none; text-align: center; margin-bottom: 0;"><abbr title="Редактировать" style="text-decoration: none;">
             {{ user.first_name|default:'Пользователь' }}</abbr>
         </a>
-    </div>
-</div>
+              {% if basket %}
+                  <table>
+                      <tr>
+                          <td>Сумма вашего заказа</td>
+                          <td style="color: #f37f00; font-weight: 600;"> {{ basket.0.total_cost }} &#8381</td>
+                      </tr>
+                  </table>
+                  <a href="{% url 'main' %}" style="text-align: center;"><img src="{% static 'img/orderbutton.png' %}" alt="" style="width: 200px"></a>
+              {% else %}
+                   <table>
+                      <tr>
+                          <td style="text-align: center;">Ваша корзина пуста</td>
+                      </tr>
+                  </table>
+                  <a href="{% url 'main' %}" style="text-align: center;"><img src="{% static 'img/button-in-katalog.png' %}" alt="" style="width: 150px"></a>
+
+              {% endif %}
 {% endif %}

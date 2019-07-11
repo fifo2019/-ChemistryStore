@@ -15,26 +15,68 @@
 
 </head>
 <body>
-<div class="container-super">
-    <div class="top">
-        {% block menu %}
+    <div class="container-super">
+        <div class="top">
+            <div class="header">
+        <a href="{% url 'main' %}"><img src="{% static 'img/logo.jpg' %}" class="logo"></a>
+        <div class="info-contact-position">
+            <div class="search-position">
+                <form class="form-inline" action="{% url 'search' %}" method="get">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Введите ключевые слова" aria-label="Search" name="q" style="width: 254px; heigt: 30px">
+                    <button class="btn btn-primary" type="submit" style="height: 34px; line-height: 16px; background-color: #067df7">Поиск</button>
+                </form>
+            </div>
+            <div style=" display: flex; justify-content: space-around;">
+                <div>
+                    <h4 style="font-size: 15px; margin-top: 12px;">Контакты:</h4>
+                    <ul class="position-contact">
+                        <li class="text-info-contact">Тел.: +7(927)-053-62-42</li>
+                        <li class="text-info-contact">г. Маркс, ул. Бебеля,
+                            д.&nbsp;58
+                        </li>
+                        <li class="text-info-contact">Email: frost2015s@yandex.ru</li>
+                    </ul>
+                </div>
+                <div style="width: 152px;">
+                    <h4 style="font-size: 15px; margin-top: 12px">Режим работы:</h4>
+                    <ul class="position-contact">
+                        <li class="text-info-contact">Пн.- Пт.: с 08:00 до 17:00</li>
+                        <li class="text-info-contact">Сб.: с 08:00 до 14:00</li>
+                        <li class="text-info-contact">Вс.: с 08:00 до 12:00</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="position-index-sign-in-and-menu">
+            <div>{% include 'mainapp/includes/inc_menu.html' %}</div>
 
-        {% endblock %}
+                {% block menu %}
 
-        {% block content %}
 
-        {% endblock %}
+                {% endblock %}
+
+        </div>
+    </div>
+
+    <div id="product">
+    {% block content %}
+
+    {% endblock %}
+    </div>
     </div>
     {% block footer %}
         <div class="footer">Copyright &copy;&nbsp;2018&nbsp;&mdash; {% now 'Y' %} Химик&nbsp;2.0 Все права защищены</div>
     {% endblock %}
 </div>
+
 {% block js %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script defer src="{% static 'js/scrollingProducts.js' %}"></script>
+    <script defer src="{% static 'js/scrollingProductBasket.js' %}"></script>
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'js/basket_scripts.js' %}"></script>
+    <script defer src="{% static 'js/inputFormPlusMinusInBasket.js' %}"></script>
 {% endblock %}
 </body>
 </html>

@@ -18,7 +18,7 @@
     <form action="{% url 'auth:delete' user.pk %}">
             {% csrf_token %}
             {{ user.as_p }}
-            <input type="submit" value="Удалить учётную запись">
+            <input type="submit" value="Удалить учётную запись" style="margin-top: 7px;">
     </form>
     <a href="{% url 'main' %}" style="text-decoration: none; margin-top: 5px; margin-bottom: 30px;">На главную</a>
 </div>

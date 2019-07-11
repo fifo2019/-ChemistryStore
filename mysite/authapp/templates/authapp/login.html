@@ -7,7 +7,7 @@
 <div class="text-center head text-login">
     Личный кабинет
 </div>
-    <form class="form-horizontal position-form-auth" action="{% url 'auth:login' %}" method="post">
+    <form class="form-horizontal position-form-auth" action="{% url 'auth:login' %}" method="post" style="width: 300px;">
         {% csrf_token %}
             {% if next %}
                 <input type="hidden" name="next" value="{{ next }}">
