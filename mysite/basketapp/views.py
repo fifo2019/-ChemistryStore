@@ -61,6 +61,7 @@ def basket_edit(request, pk):
         quantity = int(request.POST.get('name'))
 
         new_basket_item = get_object_or_404(Basket, pk=int(pk))
+        basket_count = Basket.objects.filter(user=request.user)
 
         if quantity > 0:
             new_basket_item.quantity = quantity

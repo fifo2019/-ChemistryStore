@@ -47,11 +47,19 @@ def register(request):
 
         if register_form.is_valid():
             register_form.save()
-            return render(request, 'authapp/verification.html')
+            username = request.POST['username']
+            password = request.POST['password1']
+            user = auth.authenticate(username=username, password=password)
+            if user:
+                auth.login(request, user)
+                return HttpResponseRedirect(reverse('main'))
     else:
         register_form = ShopUserRegisterForm()
 
-    content = {'title': title, 'register_form': register_form}
+    content = {
+        'title': title,
+        'register_form': register_form
+    }
 
     return render(request, 'authapp/register.html', content)
 

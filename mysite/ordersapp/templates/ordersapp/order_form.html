@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>
+        {% block title %}
+           {{ title }}
+        {% endblock %}
+    </title>
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% endblock %}
+
+</head>
+<body>
+    <h1>Онлайн-магазин</h1>
+    <p>
+      Номер заказа: <b>{{ order_new.id }}</b> <br>
+      <span class="secondary">
+        {{ order_new.created|date:"d.m.Y H:i:s" }}
+      </span>
+    </p>
+    <h3>Покупатель</h3>
+    <p>
+      {{ userItem.first_name }}<br>
+      {{ userItem.email }} <br>
+      {{ userItem.phone }} <br>
+    </p>
+    <h3>Заказанные товары</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Товар</th>
+          <th>Стоймость</th>
+          <th>Количество</th>
+          <th>Всего</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in productItemlist %}
+          <tr class="row{% cycle '1' '2' %}">
+            <td>{{ item.product.name}}</td>
+            <td>{{ item.product.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.get_product_cost }}</td>
+          </tr>
+        {% endfor %}
+        <tr class="total">
+          <td colspan="3">Всего:</td>
+          <td>{{ total_price_order }}</td>
+        </tr>
+      </tbody>
+    </table>
+</body>
+</html>
+

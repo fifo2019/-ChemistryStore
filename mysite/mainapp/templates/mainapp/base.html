@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>
         {% block title %}
            {{ title }}
@@ -18,12 +19,12 @@
     <div class="container-super">
         <div class="top">
             <header class="header">
-        <a href="{% url 'main' %}"><img src="{% static 'img/logo.jpg' %}" class="logo"></a>
+        <a href="{% url 'main' %}"><img src="{% static 'img/logo_demo2.jpg' %}" class="logo"></a>
         <div class="info-contact-position">
             <div class="search-position">
                 <form class="form-inline" action="{% url 'search' %}" method="get">
-                    <input class="form-control  mr-sm-2" type="search" placeholder="Введите ключевые слова" aria-label="Search" name="q" style="width: 254px; heigt: 30px">
-                    <button class="btn btn-primary" type="submit" style="height: 34px; line-height: 16px; background-color: #067df7">Поиск</button>
+                    <input type="search" placeholder="Введите ключевые слова" aria-label="Search" name="q" style="width: 253px; heigt: 31px; border-radius: 1px;">
+                    <button type="submit" class="button-search" style="outline: none;">Поиск</button>
                 </form>
             </div>
             <div style=" display: flex; justify-content: space-around;">
@@ -76,12 +77,6 @@
     <script defer src="{% static 'js/scrollingProducts.js' %}"></script>
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script defer src="{% static 'js/inputFormPlusMinusInBasket.js' %}"></script>
-    <script defer>
-        document.querySelector(`.submit-input-basket`).addEventListener('submit', e => {
-            e.preventDefault();
-        })
-
-    </script>
 {% endblock %}
 </body>
 </html>

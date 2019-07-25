@@ -1,14 +1,13 @@
-{% extends 'basketapp/base.html' %}
+{% extends 'mainapp/base.html' %}
 {% load staticfiles %}
 
 {% block menu %}
     <div class="position-index-sign-in">
-        {% include 'mainapp/includes/inc_sing_in_two.html' %}
+        {% include 'mainapp/includes/inc_sing_in.html' %}
     </div>
 {% endblock %}
 
 {% block content %}
-Ваша корзина:
 <div class="block-products">
 
   <div class="basket_list">

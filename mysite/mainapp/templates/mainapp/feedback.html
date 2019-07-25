@@ -9,13 +9,17 @@
 {% endblock %}
 
 {% block content %}
-    <div class="info-contact-position">
-        <h2>Наши контакты:</h2>
-        <ul>
-            <li class="text-info-contact">Телефон: +7(927)-053-62-42</li>
-            <li class="text-info-contact">Адрес магазина: 413090, Саратовская область, г. Маркс, ул. Бебеля, д.&nbsp;58</li>
-            <li class="text-info-contact">E-mail: frost2015s@yandex.ru</li>
-        </ul>
-    </div>
-    <br>
+    <div class="block-position-feeback-one">
+     {% if sent %}
+        <h1>Письмо отправленно!</h1>
+     {% else %}
+        <div class="block-position-feeback-two">
+            <form method="POST" class="post-form"  action="#">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-default btn-sm" style="border: 1px solid #d6cece; width: 108px; border-radius: 1px;">Отправить</button>
+            </form>
+        </div>
+     {% endif %}
+     </div>
 {% endblock %}

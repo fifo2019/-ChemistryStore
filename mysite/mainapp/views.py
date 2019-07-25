@@ -5,6 +5,9 @@ from basketapp.models import Basket
 from random import random, sample
 from django.db.models import Q
 from django.views import View
+from django.core.mail import send_mail
+from django.conf import settings
+from .forms import ContactForm
 
 # В контроллер всегда передается как минимум один аргумент — объект запроса request.
 # Мы пользуемся функцией render() из модуля django.shortcuts, которая должна
@@ -77,8 +80,24 @@ def feedback(request):
     if request.user.is_authenticated:
         basket = Basket.objects.filter(user=request.user)
 
+    sent = False
+    mailfrom = settings.EMAIL_HOST_USER
+    mailto = [settings.EMAIL_HOST_USER]
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            subject = 'Новое письмо от {}'.format(cd['name'])
+            message = 'Прислал {}. Телефон: {}. Пишет: {}'.format(cd['email'], cd['phone'], cd['message'])
+            send_mail(subject, message, mailfrom, mailto)
+            sent = True
+    else:
+        form = ContactForm()
+
     content = {'title': title,
                'basket': basket,
+               'form': form,
+               'sent': sent
                }
 
     return render(request, 'mainapp/feedback.html', content)

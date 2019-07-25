@@ -1,0 +1,39 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+   <div class="h2" style="margin-top:20px; text-align:center;">
+       Ваши заказы, 
+       {% if user.first_name %}
+           {{ user.first_name|title}}
+       {% else %}
+           Пользователь
+       {% endif %}
+   </div>
+   <table class="table orders_list" style="text-align:center; border-bottom: 0">
+       <thead>
+         <tr>
+           <th style="border-bottom: 0;">ID</th>
+           <th style="border-bottom: 0;">Создан</th>
+           <th style="border-bottom: 0;">Статус</th>
+         </tr>
+       </thead>
+       <tbody>
+           {% for item in object_list %}
+               {% if item.is_active %}
+               <tr>
+                   <td class="td1 orders_list">{{ item.pk }}</td>
+                   <td>{{ item.created|date:"d.m.Y H:i:s" }}</td>
+                   <td>{{ item.get_status_display }}</td>
+                   <td>
+                       <a href="{% url 'ordersapp:order_read' item.pk %}">
+                           Посмотреть в PDF
+                       </a>
+                   </td>
+               </tr>
+               {% endif %}
+           {% endfor %}
+       </tbody>
+   </table>
+{% endblock %}

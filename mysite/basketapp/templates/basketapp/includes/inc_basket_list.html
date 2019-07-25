@@ -1,42 +1,60 @@
-<div class="posiciton-basket-record-conteiner">
-    {% for item in basket_items %}
-<div class="basket_record">
-    <div>
-        <a href="{% url 'products:product' item.product.pk %}"><img src="/media/{{ item.product.image }}"
-                 alt="{{ item.product.short_desc }}" style="width: 150px; margin-left: 15px; height: 150px;"></a>
+{% load staticfiles %}
 
-    </div>
-    <div style="margin-left: 15px; display: flex;">
-      <div style="margin-bottom: 15px; width: 200px; justify-content: center;">
-          <table>
-            <tr>
-                <td class="product_name"><b>{{ item.product.name }}</b></td>
-            </tr>
-            <tr>
-                <td class="product_name" style="height: 50px;">{{ item.product.short_desc }}</td>
-            </tr>
-            <tr>
-                <td class="price" style="justify-content: flex-start;">{{ item.product.price }}&nbspруб</td>
-            </tr>
-        </table>
-      </div>
-      <div style="display: flex; flex-direction: column;">
-         <form action="{% url 'basket:edit' item.pk %}" method="post" style="text-align: center;">
-            {% csrf_token %}
-            <div class="quantity-block">
-                  <button type="button" class="quantity-arrow-minus" style="outline: none;"> - </button>
-                  <input  name="name" class="quantity-num" type="number" value="{{ item.quantity }}">
-                  <button type="button" class="quantity-arrow-plus" style="outline: none;"> + </button>
+{% if basket|length > 0 %}
+<div class="posiciton-basket-record-conteiner">
+    {% for item in basket %}
+    <div class="basket_record">
+        <div>
+            <a href="{% url 'products:product' item.product.pk %}">
+                <img src="/media/{{ item.product.image }}" alt="{{ item.product.short_desc }}" style="width: 150px; margin-left: 15px; height: 150px;"></a>
+        </div>
+            <div style="margin-bottom: 15px; width: auto; justify-content: center;">
+                <table style="width: 400px;">
+                    <tr>
+                        <td class="product_name"><b>{{ item.product.name }}</b></td>
+                    </tr>
+                    <tr>
+                        <td class="product_name" style="height: 50px;">{{ item.product.short_desc }}</td>
+                    </tr>
+                    <tr>
+                        <td style="display: flex; justify-content: space-around;">
+                            <p class="price" style="width: auto;">{{ item.product.price }} &#8381 </p>
+                            <p style="font-size: 22px; margin: 0;">&#215;</p>
+                            <form action="{% url 'basket:edit' item.pk %}" method="post" style="text-align: center; margin-top: 5px;">
+                                    {% csrf_token %}
+                                    <div class="quantity-block">
+                                        <button type="button" class="quantity-arrow-minus" style="outline: none;"> - </button>
+                                        <input  name="name" class="quantity-num" type="number" value="{{ item.quantity }}">
+                                        <button type="button" class="quantity-arrow-plus" style="outline: none;"> + </button>
+                                    </div>
+                                <input type="submit" value="Изменить"  class="submit-input-basket" style="margin-top: 10px; width: 76px; height: 25px;">
+                            </form>
+                            <p style="font-size: 22px; margin: 0;">&#61;</p>
+                            <p class="price" style="width: auto;">{{ item.get_product_cost }} &#8381 </p>
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <input type="submit" value="Изменить"  class="submit-input-basket" style="margin-top: 13px; width: 96px; height: 31px;">
-        </form>
-          <form action="{% url 'basket:remove' item.pk %}" method="post" style="text-align: center;">
-                {% csrf_token %}
-                {{ basket_record.as_p }}
-                <input type="submit" value="Удалить" style="width: 100px; margin-top: 15px; color: #0616ee;">
-          </form>
-      </div>
+            <div style="display: flex; flex-direction: column;">
+                <form action="{% url 'basket:remove' item.pk %}" method="post" style="text-align: center;">
+                    {% csrf_token %}
+                    {{ basket_record.as_p }}
+                    <button type="submit" style="background-color: #ffffff; outline: none;"><img src="{% static 'img/trash-empty.png' %}" alt="trash-empty" style="width: 58px"/></button>
+                </form>
+            </div>
+    </div>
+    <hr class="line-basket-item" />
+    {% endfor %}
+</div>
+<div class="basket-otders-block">
+    <div><p class="text-basket-orders">Сумма к оплате</p>
+        <p class="price" style="font-size: 24px; justify-content: flex-start;">&#8381 {{ basket.0.total_cost }}</p>
+    </div>
+    <div class="button-basket-orders">
+        <a href="{% url 'ordersapp:order_create' %}" style="text-decoration: none; color: #ffffff;">
+            Заказать</a>
     </div>
 </div>
-{% endfor %}
-</div>
+{% else %}
+<div style="width: 100%; display: flex; justify-content: center;"><img src="{% static 'img/cart-empty.png' %}"></div>
+{% endif %}
