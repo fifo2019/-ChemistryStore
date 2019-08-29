@@ -17,18 +17,15 @@
                         <td class="product_name" style="height: 50px;">{{ item.product.short_desc }}</td>
                     </tr>
                     <tr>
-                        <td style="display: flex; justify-content: space-around;">
+                        <td style="display: flex; justify-content: space-around; align-items: baseline;">
                             <p class="price" style="width: auto;">{{ item.product.price }} &#8381 </p>
                             <p style="font-size: 22px; margin: 0;">&#215;</p>
-                            <form action="{% url 'basket:edit' item.pk %}" method="post" style="text-align: center; margin-top: 5px;">
-                                    {% csrf_token %}
                                     <div class="quantity-block">
                                         <button type="button" class="quantity-arrow-minus" style="outline: none;"> - </button>
-                                        <input  name="name" class="quantity-num" type="number" value="{{ item.quantity }}">
+                                        <input  type="number" class="quantity-num" name="{{ item.pk }}"  value="{{ item.quantity }}">
                                         <button type="button" class="quantity-arrow-plus" style="outline: none;"> + </button>
+                                        <input type="button" value="Изменить" class="submit-input-basket" style="margin-top: 10px; width: 76px; height: 25px;">
                                     </div>
-                                <input type="submit" value="Изменить"  class="submit-input-basket" style="margin-top: 10px; width: 76px; height: 25px;">
-                            </form>
                             <p style="font-size: 22px; margin: 0;">&#61;</p>
                             <p class="price" style="width: auto;">{{ item.get_product_cost }} &#8381 </p>
                         </td>
@@ -47,7 +44,7 @@
     {% endfor %}
 </div>
 <div class="basket-otders-block">
-    <div><p class="text-basket-orders">Сумма к оплате</p>
+    <div><p class="text-basket-orders">Сумма заказа</p>
         <p class="price" style="font-size: 24px; justify-content: flex-start;">&#8381 {{ basket.0.total_cost }}</p>
     </div>
     <div class="button-basket-orders">

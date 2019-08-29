@@ -1,0 +1,18 @@
+{% extends 'authapp/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="login login-auth">
+<div class="text-center head text-login">
+    Заявка принята в обработку!
+</div>
+    <br>
+    <h3>Спасибо за заказ!</h3>
+    <h4>В ближайшее время с Вами свяжется менеджер.</h4>
+    <p>Время получения заказа Вам сообщат по указанному телефону в личном кабинете. <br></p>
+    <p>Если возникли вопросы обращайтесь по телефону: +7(927)-053-62-42<br></p>
+  <br>
+  <a href="{% url 'main' %}" style="text-decoration: none; margin-top: 5px; font-size: 22px">Вернуться на главную</a>
+  <a href="{% url 'ordersapp:orders_list' %}" style="text-decoration: none; margin-top: 5px; margin-bottom: 30px; font-size: 22px">Ваши заказы</a>
+</div>
+{% endblock %}

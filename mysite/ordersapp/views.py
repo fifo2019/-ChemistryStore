@@ -66,7 +66,7 @@ def orderItemsCreate(request):
         message = 'Заказ № {0} Заказчик {1}. Телефон: {2}. Email: {3}'.format(order_new.id, userItem.first_name, userItem.phone, userItem.email)
         send_mail(subject, message, mailfrom, mailto)
         sent = True
-        return render(request, 'ordersapp/order_form.html', content)
+        return render(request, 'ordersapp/order_info.html', content)
     else:
         return redirect('ordersapp:orders_list')
 

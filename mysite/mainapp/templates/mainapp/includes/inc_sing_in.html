@@ -8,16 +8,16 @@
 <a href="{% url 'ordersapp:orders_list' %}" style="text-decoration: none;">
                        Ваши заказы
                    </a>
+{% endif %}
 <div class="sign-in-position">
-    <img src="{% static 'img/basket-logo1.png' %}" class="basket-logo">
+        <img src="{% static 'img/basket-logo1.png' %}" class="basket-logo">
     {% if basket|length > 0 %}
-    <a href="{% url 'basket:view' %}" class="mini-basket-position">
+        <a href="{% url 'basket:view' %}" class="mini-basket-position">
                     <span style="color: #da251c; font-weight: 600;">
                          &#8381 {{ basket.0.total_cost }}
                           ({{ basket.0.total_quantity }} шт.)
                     </span><br/></a>
     {% else %}
-    <p class="if-basket-empty">Ваша корзина пуста</p>
+        <p class="if-basket-empty">Ваша корзина пуста</p>
     {% endif %}
 </div>
-{% endif %}

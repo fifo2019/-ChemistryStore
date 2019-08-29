@@ -33,15 +33,18 @@
                             <div class="product-price">&#8381 {{ product.price }}</div>
                         </div>
                         <div class="button-index-basket-position">
-                            <form action="{% url 'basket:add' product.pk %}" method="post" style="form-basket-add">
-                                {% csrf_token %}
-                                <div class="quantity-block">
-                                      <button type="button" class="quantity-arrow-minus" style="outline: none;"> - </button>
-                                      <input  name="name" class="quantity-num" type="number" value="0">
-                                      <button type="button" class="quantity-arrow-plus" style="outline: none;"> + </button>
-                                </div>
-                                <input type="submit" onclick="goBack()" value="В корзину"  class="submit-input-basket">
-                            </form>
+                            <div class="quantity-block">
+                                <button type="button" class="quantity-arrow-minus" style="outline: none;"> -</button>
+                                <input name="{{ product.pk }}" class="quantity-num" type="number"
+                                       value="{{ product.quantity }}">
+                                <button type="button" class="quantity-arrow-plus" style="outline: none;"> +</button>
+                                {% if user.is_anonymous %}
+                                    <a href="{% url 'auth:login' %}"><input type="submit" value="В корзину"
+                                                                            class="submit-input-basket"></a>
+                                {% else %}
+                                    <input type="button" value="В корзину" class="submit-input-basket">
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
