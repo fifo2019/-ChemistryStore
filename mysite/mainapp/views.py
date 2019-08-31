@@ -109,7 +109,7 @@ def search(request, *args, **kwargs):
     if request.user.is_authenticated:
         basket = Basket.objects.filter(user=request.user)
 
-    query = request.GET.get('q')
+    query = request.GET.get('q').title()
     search_product = Product.objects.filter(
         Q(name__icontains=query)|
         Q(name__istartswith=query)|

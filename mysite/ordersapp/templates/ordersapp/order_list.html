@@ -8,7 +8,8 @@
 {% endblock %}
 
 {% block content %}
-   <div class="h2" style="margin-top:20px; text-align:center;">
+<div class="order-list-view">
+   <div class="h2" style="margin-top:20px; text-align:center; margin-bottom: 30px;">
        Ваши заказы, 
        {% if user.first_name %}
            {{ user.first_name|title}}
@@ -16,7 +17,7 @@
            Пользователь
        {% endif %}
    </div>
-   <table class="table orders_list" style="text-align:center; border-bottom: 0">
+   <table class="table orders_list" style="text-align:center; border-bottom: 0; width: 900px;">
        <thead>
          <tr>
            <th style="border-bottom: 0;">ID</th>
@@ -25,20 +26,26 @@
          </tr>
        </thead>
        <tbody>
-           {% for item in object_list %}
+           {% for item in orders %}
                {% if item.is_active %}
-               <tr>
+               <tr style="line-height:40px;">
                    <td class="td1 orders_list">{{ item.pk }}</td>
                    <td>{{ item.created|date:"d.m.Y H:i:s" }}</td>
                    <td>{{ item.get_status_display }}</td>
                    <td>
                        <a href="{% url 'ordersapp:order_read' item.pk %}">
-                           Посмотреть в PDF
+                           Просмотр заказа
                        </a>
+                   </td>
+                   <td>
+                         <a href="{% url 'ordersapp:order_delete' item.pk %}">
+                             <img src="{% static 'img/trash-empty.png' %}" alt="trash-empty" style="width: 33px"/>
+                         </a>
                    </td>
                </tr>
                {% endif %}
            {% endfor %}
        </tbody>
    </table>
+</div>
 {% endblock %}

@@ -34,7 +34,7 @@
                             <div class="quantity-block">
                                 <button type="button" class="quantity-arrow-minus" style="outline: none;"> -</button>
                                 <input name="{{ product.pk }}" class="quantity-num" type="number"
-                                       value="{{ product.quantity }}">
+                                       value="0">
                                 <button type="button" class="quantity-arrow-plus" style="outline: none;"> +</button>
                                 {% if user.is_anonymous %}
                                     <a href="{% url 'auth:login' %}"><input type="submit" value="В корзину"

@@ -83,7 +83,7 @@ def edit(request):
 
 @login_required
 def delete(request, pk):
-    title = 'удаление'
+    title = 'Удаление'
 
     user = get_object_or_404(ShopUser, pk=pk)
 

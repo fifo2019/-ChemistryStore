@@ -8,30 +8,7 @@
 {% endblock %}
 
 {% block content %}
-   {% include 'ordersapp/includes/inc_order_summary.html' %}
-   <div class="basket_list">
-       <ol>
-       {% for item in object.orderitems.select_related %}
-           <li>
-           <div class="basket_record">
-               <span class="product_name">{{ item.product.name }}</span>
-               <span class="category_name">{{ item.product.short_desc }}
-               </span>
-               <span class="product_name">{{ item.product.name }}</span>
-               <span class="product_price">
-                   {{ item.product.price }}&nbspруб
-               </span>
-               <span class="product_quantitiy">
-                   x {{ item.quantity }} шт.
-               </span>
-               <span class="product_cost">
-                    = {{ item.get_product_cost }}&nbspруб
-               </span>
-           </div>
-           </li>
-       {% endfor %}
-        </ol>
-   </div>
-   {% include 'ordersapp/includes/inc_order_actions.html' %}
-
+    <div class="order-one-view">
+        {% include 'ordersapp/includes/inc_order_detail_pdf.html' %}
+    </div>
 {% endblock %}

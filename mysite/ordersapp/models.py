@@ -2,6 +2,7 @@ from django.db import models
 
 from django.conf import settings
 from mainapp.models import Product
+from basketapp.models import Basket
 
 
 class Order(models.Model):

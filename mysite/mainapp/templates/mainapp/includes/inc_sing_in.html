@@ -5,7 +5,7 @@
                                                                      style="text-decoration: none;">
     {{ user.first_name|default:'Пользователь' }}</abbr>
 </a>
-<a href="{% url 'ordersapp:orders_list' %}" style="text-decoration: none;">
+<a href="{% url 'ordersapp:orders_list' %}" class="order-style-view">
                        Ваши заказы
                    </a>
 {% endif %}

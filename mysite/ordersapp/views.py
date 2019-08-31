@@ -20,19 +20,33 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 
-class OrderList(ListView):
-    model = Order
+# class OrderList(ListView):
+#     model = Order
+#
+#     def get_queryset(self):
+#         return Order.objects.filter(user=self.request.user)
+#
+#     @method_decorator(login_required())
+#     def dispatch(self, *args, **kwargs):
+#         return super(ListView, self).dispatch(*args, **kwargs)
+@login_required
+def orderList(request):
+    title = 'Заказы'
+    orders = Order.objects.filter(user=request.user)
+    basket = Basket.objects.filter(user=request.user)
 
-    def get_queryset(self):
-        return Order.objects.filter(user=self.request.user)
+    content = {
+        'title': title,
+        'orders': orders,
+        'basket': basket,
+    }
 
-    @method_decorator(login_required())
-    def dispatch(self, *args, **kwargs):
-        return super(ListView, self).dispatch(*args, **kwargs)
+    return render(request, 'ordersapp/order_list.html', content)
 
-
+@login_required
 def orderItemsCreate(request):
     basket_items = Basket.objects.filter(user=request.user)
     if len(basket_items) > 0:
@@ -71,17 +85,86 @@ def orderItemsCreate(request):
         return redirect('ordersapp:orders_list')
 
 
-class OrderRead(DetailView):
-    model = Order
+@login_required
+def orderRead(request, pk):
+    title = 'Просмотр заказа'
 
-    def get_queryset(self):
-        return Order.objects.filter(user=self.request.user)
+    basket = Basket.objects.filter(user=request.user)
+    order = Order.objects.filter(user=request.user, pk=pk)
+    orderItems = OrderItem.objects.filter(order__id=pk)
+    userItem = ShopUser.objects.get(pk=request.user.pk)
+    lengthDict = len(order)
 
-    def get_context_data(self, **kwargs):
-        context = super(OrderRead, self).get_context_data(**kwargs)
-        context['title'] = 'заказ/просмотр'
-        return context
+    try:
 
-    @method_decorator(login_required())
-    def dispatch(self, *args, **kwargs):
-        return super(DetailView, self).dispatch(*args, **kwargs)
+        if userItem.pk == order[0].user.pk:
+
+            content = {
+                'title': title,
+                'order': order,
+                'basket': basket,
+                'orderItems': orderItems
+            }
+
+            return render(request, 'ordersapp/order_detail.html', content)
+
+    except IndexError:
+
+            return redirect('ordersapp:orders_list')
+
+# class OrderRead(DetailView):
+#     model = Order
+#
+#     def get_queryset(self):
+#         return Order.objects.filter(user=self.request.user)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(OrderRead, self).get_context_data(**kwargs)
+#         context['title'] = 'заказ/просмотр'
+#         return context
+#
+#     @method_decorator(login_required())
+#     def dispatch(self, *args, **kwargs):
+#         return super(DetailView, self).dispatch(*args, **kwargs)
+
+
+@login_required
+def orderDelete(request, pk):
+    title = 'Удалить заказа'
+
+    basket = Basket.objects.filter(user=request.user)
+    order = Order.objects.filter(user=request.user, pk=pk)
+    orderItems = OrderItem.objects.filter(order__id=pk)
+    userItem = ShopUser.objects.get(pk=request.user.pk)
+
+    try:
+        if userItem.pk == order[0].user.pk:
+            if request.method == 'POST':
+                order[0].delete()
+                order[0].save()
+
+                return redirect('ordersapp:orders_list')
+
+    except IndexError:
+
+        return redirect('ordersapp:orders_list')
+
+    content = {'title': title,
+               'userItem': userItem,
+               'basket': basket,
+               'order': order,
+               'orderItems': orderItems
+               }
+
+    return render(request, 'ordersapp/order_confirm_delete.html', content)
+
+# class OrderDelete(DeleteView):
+#     model = Order
+#     success_url = reverse_lazy('ordersapp:orders_list')
+#
+#     def get_queryset(self):
+#         return Order.objects.filter(user=self.request.user)
+#
+#     @method_decorator(login_required())
+#     def dispatch(self, *args, **kwargs):
+#         return super(DeleteView, self).dispatch(*args, **kwargs)
